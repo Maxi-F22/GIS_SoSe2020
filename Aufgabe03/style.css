@@ -10,6 +10,8 @@ body{
 header{
     background-color: orangered;
     border-radius: 50px;;
+    width: 800px;
+    height: 430px;
     padding: 20px;
     margin: 10px;
 }
@@ -42,6 +44,7 @@ nav{
     left: 70%;
     background-color: black;
     color: orangered;
+    border: 2px solid orangered;
     text-align: center;
     padding: 6px;
     border-radius: 20px;
