@@ -1,0 +1,387 @@
+@media screen and (min-width: 1024px){
+    main *{
+        box-sizing: border-box;
+    }
+    body{
+        background-image: url(Bilder/Logos/Background.jpg);
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+    
+    header{
+        text-align: center;
+        background-color: rgb(128, 94, 51);
+        border-radius: 50px;
+        padding: 5px;
+    }
+
+    div{
+        display: block;
+    }
+
+    nav{
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+    }
+    
+    nav ul{
+        list-style: none;
+        text-align: left;
+        background-color: rgb(128, 94, 51);
+        border-radius: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    nav a{
+        text-decoration: none;
+        color: black;
+        font-size: 1.2em;
+        padding-top: 3px;
+    }
+
+    #Klappen{
+        display: none;
+    }
+
+    #Dropdown>a{
+        display: block;
+        color: black;
+    }
+
+    #Dropdown:hover #Klappen{
+        display: block;
+    }
+
+    nav a:hover{
+        color: cyan;
+    }
+
+    nav>p{
+        display: inline;
+        position: relative;
+        top: -50px;
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    h1{
+        color: aquamarine;
+        font-size: 7em;
+        letter-spacing: -10px;
+    }
+
+    h1 + h2{
+        color: aquamarine;
+        font-size: 3em;
+    }
+
+    h2{
+        color: rgb(99, 99, 66);
+        font-size: 3em;
+        letter-spacing: -3px;
+        margin-top: 2em;
+    }
+
+    h3{
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    #Cart{
+        position: absolute;
+        right: 4%;
+        top: -2px;
+        display: inline;
+    }
+
+    .Produkt{
+        display: block;
+        background-color: darkturquoise;
+        text-align: center;
+        float: left;
+        margin-top: 5%;
+        padding: 10px;
+        border: 1px solid black;
+        width: 300px;
+        height: 350px;
+        line-height: 0.5;
+    }
+
+
+    .flex-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: space-around;
+    }
+
+    .Produkt:nth-child(2n){
+        background-color: darkcyan;
+    }
+
+    img[alt=Logo]{
+        width: 400px;
+        object-fit: cover;
+    }
+    
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 1024px){
+    main *{
+        box-sizing: border-box;
+    }
+    body{
+        background-image: url(Bilder/Logos/Background.jpg);
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+    
+    header{
+        text-align: center;
+        background-color: rgb(128, 94, 51);
+        border-radius: 50px;
+        padding: 3px;
+    }
+
+    div{
+        display: block;
+    }
+
+    nav{
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+    }
+    
+    nav ul{
+        list-style: none;
+        text-align: left;
+        background-color: rgb(128, 94, 51);
+        border-radius: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    nav a{
+        text-decoration: none;
+        color: black;
+        font-size: 1.2em;
+        padding-top: 3px;
+    }
+
+    #Klappen{
+        display: none;
+    }
+
+    #Dropdown>a{
+        display: block;
+        color: black;
+    }
+
+    #Dropdown:hover #Klappen{
+        display: block;
+    }
+
+    nav a:hover{
+        color: cyan;
+    }
+
+    nav>p{
+        display: inline;
+        position: relative;
+        top: -50px;
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    h1{
+        color: aquamarine;
+        font-size: 4em;
+        letter-spacing: -3px;
+    }
+
+    h1 + h2{
+        color: aquamarine;
+        font-size: 2em;
+        letter-spacing: 0px;
+    }
+
+    h2{
+        color: rgb(99, 99, 66);
+        font-size: 2em;
+        letter-spacing: -3px;
+    }
+
+    h3{
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    #Cart{
+        position: absolute;
+        right: 4%;
+        top: -2px;
+        display: inline;
+    }
+
+    .Produkt{
+        display: block;
+        background-color: darkturquoise;
+        text-align: center;
+        float: left;
+        margin-top: 5%;
+        padding: 10px;
+        border: 1px solid black;
+        width: 300px;
+        height: 350px;
+        line-height: 0.5;
+    }
+
+
+    .flex-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: space-around;
+    }
+
+    .Produkt:nth-child(2n){
+        background-color: darkcyan;
+    }
+    
+    img[alt=Logo]{
+        width: 300px;
+        object-fit: cover;
+    }
+}
+
+
+@media screen and (max-width: 600px){
+    main *{
+        box-sizing: border-box;
+    }
+    body{
+        background-image: url(Bilder/Logos/Background.jpg);
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+    
+    header{
+        text-align: center;
+        background-color: rgb(128, 94, 51);
+        border-radius: 50px;
+        padding: 5px;
+    }
+
+    div{
+        display: block;
+    }
+
+    nav{
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+    }
+    
+    nav ul{
+        list-style: none;
+        text-align: left;
+        background-color: rgb(128, 94, 51);
+        border-radius: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    nav a{
+        text-decoration: none;
+        color: black;
+        padding-top: 3px;
+    }
+
+    #Klappen{
+        display: none;
+    }
+
+    #Dropdown>a{
+        display: block;
+        color: black;
+    }
+
+    #Dropdown:hover #Klappen{
+        display: block;
+    }
+
+    nav a:hover{
+        color: cyan;
+    }
+
+    nav>p{
+        display: none;
+    }
+
+    h1{
+        color: aquamarine;
+        font-size: 2em;
+        letter-spacing: -1px;
+    }
+
+    h1 + h2{
+        color: aquamarine;
+        font-size: 1em;
+        letter-spacing: 0px;
+    }
+
+    h2{
+        color: rgb(99, 99, 66);
+        font-size: 2em;
+        letter-spacing: -3px;
+    }
+
+    h3{
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    #Cart{
+        position: absolute;
+        right: 5%;
+        top: -2px;
+        display: inline;
+    }
+
+    .Produkt{
+        display: block;
+        background-color: darkturquoise;
+        text-align: center;
+        float: left;
+        margin-top: 5%;
+        padding: 10px;
+        border: 1px solid black;
+        width: 300px;
+        height: 350px;
+        line-height: 0.5;
+    }
+
+
+    .flex-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: space-around;
+    }
+
+    .Produkt:nth-child(2n){
+        background-color: darkcyan;
+    }
+
+    img[alt=Logo]{
+        width: 200px;
+        object-fit: cover;
+    }
+
+    
+
+}
