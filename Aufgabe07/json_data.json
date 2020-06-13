@@ -1,0 +1,14 @@
+[
+    { "name": "Apfelstuhl", "img": "Bilder/Möbel/apfelstuhl.png", "descr": "...Warum nicht?", "price": 12.99, "category": "Moebel" },
+    { "name": "Anatomisches Modell", "img": "Bilder/Möbel/anatomisch.png", "descr": "Halb Mensch, halb gehäutet", "price": 45.98, "category": "Moebel" },
+    { "name": "Arcade", "img": "Bilder/Möbel/arcade.png", "descr": "Für das Spiel im Spiel", "price": 150, "category": "Moebel" },
+    { "name": "Astronaut", "img": "Bilder/Möbel/astronaut.png", "descr": "Nur der Anzug", "price": 199.99, "category": "Moebel" },
+    { "name": "Asteroid", "img": "Bilder/Möbel/asteroid.png", "descr": "Hat der Astronaut mitgebracht", "price": 123.99, "category": "Moebel" },
+    { "name": "Mülltonne", "img": "Bilder/Möbel/mülltonne.png", "descr": "Um alte Klausuren zu entsorgen", "price": 1, "category": "Moebel" },
+    { "name": "Anton", "img": "Bilder/Bewohner/Anton.png", "descr": "Jeder mag Affen", "price": 20, "category": "Bewohner" },
+    { "name": "Armin", "img": "Bilder/Bewohner/Armin.png", "descr": "Vogel mit Mittelscheitel", "price": 30, "category": "Bewohner" },
+    { "name": "Ede", "img": "Bilder/Bewohner/Ede.png", "descr": "Hat schon viel erlebt", "price": 25, "category": "Bewohner" },
+    { "name": "Grischa", "img": "Bilder/Bewohner/Grischa.png", "descr": "Veni, vidi, vici", "price": 19, "category": "Bewohner" },
+    { "name": "Hubert", "img": "Bilder/Bewohner/Hubert.png", "descr": "Bär mit Bart und Brille", "price": 22, "category": "Bewohner" },
+    { "name": "Koko", "img": "Bilder/Bewohner/Koko.png", "descr": "Starrt direkt in deine Seele", "price": 150, "category": "Bewohner" }
+]
