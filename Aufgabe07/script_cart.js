@@ -105,7 +105,7 @@ var Aufgabe07;
             artikelZaehler--;
             localStorage.removeItem("artikelCount");
             localStorage.setItem("artikelCount", artikelZaehler.toString());
-            location.reload();
+            document.location.reload();
         }
     }
 })(Aufgabe07 || (Aufgabe07 = {}));

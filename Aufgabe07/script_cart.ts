@@ -123,7 +123,7 @@ namespace Aufgabe07 {
             localStorage.removeItem("artikelCount");
             localStorage.setItem("artikelCount", artikelZaehler.toString());
             
-            location.reload();
+            document.location.reload();
         }
 
     }
