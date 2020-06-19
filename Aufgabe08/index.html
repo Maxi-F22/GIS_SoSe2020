@@ -4,14 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Submit</title>
+    <script src="scriptA8.js" defer></script>
 </head>
 
 <body>
-    <form action="" method="GET">
-        <label for="fname">Vorname</label><br>
+    <form action="https://gissose2020maxfla.herokuapp.com/" method="GET">
+        <label for="fname">Vorname:</label><br>
         <input type="text" name="fname" id="fname"><br><br>
-        <button type="submit">Schick</button>
+        <label for="lname">Nachname:</label><br>
+        <input type="text" name="lname" id="lname"><br><br>
+        <label for="gender">Geschlecht:</label><br>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Männlich</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Weiblich</label><br>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Anderes</label><br><br>
+        <label for="birthday">Geburtstag:</label><br>
+        <input type="date" name="birthday" id="birthday"><br>
+        <br>
+        <button type="submit" id="button">Abschicken</button>
     </form>
 </body>
 
