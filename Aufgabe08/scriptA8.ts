@@ -11,7 +11,7 @@ namespace Aufgabe08 {
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         url = url + "?" + query.toString();
         await fetch(url);
-        for (let entry of query) {
+        for (let entry of query) { 
             console.log(entry);
             console.log("name: " + entry[0]);
             console.log("value: " + entry[1]);

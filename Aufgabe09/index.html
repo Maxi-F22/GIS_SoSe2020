@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit</title>
-    <script src="scriptA8.js" defer></script>
+    <title>Login</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <form action="" method="GET">
+    <h2>Login</h2>
+    <form action="https://gissose2020maxfla.herokuapp.com" method="GET">
         <label for="fname">Vorname:</label><br>
         <input type="text" name="fname" id="fname"><br><br>
         <label for="lname">Nachname:</label><br>
@@ -24,8 +26,12 @@
         <label for="birthday">Geburtstag:</label><br>
         <input type="date" name="birthday" id="birthday"><br>
         <br>
-        <button type="button" id="button">Abschicken</button>
+        <button type="button" id="buttonHtml">HTML</button>
+        <button type="button" id="buttonJson">JSON</button>
     </form>
+    <br>
+    <hr>
+    <div id="response"></div>
 </body>
 
 </html>

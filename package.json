@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "herokuserverpackage",
     "main": "index.js",
-    "dependencies": {},
+    "dependencies": {
+        "@types/node": "^14.0.14"
+    },
     "devDependencies": {},
     "scripts": {
-        "start": "node Aufgabe08/serverscriptA8.js"
+        "start": "node Aufgabe09/server.js"
     },
     "repository": {
         "type": "git",
