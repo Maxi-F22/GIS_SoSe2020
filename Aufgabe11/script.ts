@@ -20,7 +20,7 @@ namespace Aufgabe11 {
         url += "/get";
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
-        let responseDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("response");
-        responseDiv.innerHTML = responseText;
+        let responseP: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("response");
+        responseP.innerHTML = responseText;
     }
 }
