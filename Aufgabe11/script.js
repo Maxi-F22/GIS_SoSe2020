@@ -4,7 +4,7 @@ var Aufgabe11;
     let formData;
     let sendClick = document.getElementById("buttonSend");
     sendClick.addEventListener("click", handleSendClick);
-    let retrieveClick = document.getElementById("buttonRetrieve");
+    let retrieveClick = document.getElementById("buttonGet");
     retrieveClick.addEventListener("click", handleRetrieveClick);
     async function handleSendClick() {
         formData = new FormData(document.forms[0]);
@@ -17,7 +17,7 @@ var Aufgabe11;
         let url = "https://gissose2020maxfla.herokuapp.com";
         url += "/get";
         let response = await fetch(url);
-        let responseText = await response.json();
+        let responseText = await response.text();
         let responseDiv = document.getElementById("response");
         responseDiv.innerHTML = responseText;
     }

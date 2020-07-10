@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body style="text-align: center;">
     <h2>Login</h2>
-    <form>
+    <form method="GET" action="">
         <label for="fname">Vorname:</label><br>
         <input type="text" name="fname" id="fname"><br><br>
         <label for="lname">Nachname:</label><br>
@@ -24,7 +23,8 @@
     <br>
     <hr>
     <h2>Ausgabe:</h2><br>
-    <div id="response">
+    <div id="responseDiv" style="border: 2px;">
+        <p id="response"></p>
     </div>
 </body>
 

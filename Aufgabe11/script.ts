@@ -3,7 +3,7 @@ namespace Aufgabe11 {
 
     let sendClick: HTMLButtonElement = <HTMLButtonElement>document.getElementById("buttonSend");
     sendClick.addEventListener("click", handleSendClick);
-    let retrieveClick: HTMLButtonElement = <HTMLButtonElement>document.getElementById("buttonRetrieve");
+    let retrieveClick: HTMLButtonElement = <HTMLButtonElement>document.getElementById("buttonGet");
     retrieveClick.addEventListener("click", handleRetrieveClick);
 
     async function handleSendClick(): Promise<void> {
@@ -18,7 +18,7 @@ namespace Aufgabe11 {
         let url: string = "https://gissose2020maxfla.herokuapp.com";
         url += "/get";
         let response: Response = await fetch(url);
-        let responseText: string = await response.json();
+        let responseText: string = await response.text();
         let responseDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("response");
         responseDiv.innerHTML = responseText;
     }
