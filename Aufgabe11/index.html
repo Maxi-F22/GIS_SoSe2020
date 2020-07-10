@@ -17,13 +17,23 @@
         <input type="text" name="lname" id="lname"><br><br>
         <label for="matrikel">Matrikelnummer:</label><br>
         <input type="text" name="matrikel" id="matrikel"><br><br>
+        <label for="gender">Geschlecht:</label><br>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Männlich</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Weiblich</label><br>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Anderes</label><br><br>
+        <label for="birthday">Geburtstag:</label><br>
+        <input type="date" name="birthday" id="birthday"><br>
+        <br>
         <button type="button" id="buttonSend">Senden</button>
         <button type="button" id="buttonGet">Ausgeben</button>
     </form>
     <br>
     <hr>
     <h2>Ausgabe:</h2><br>
-    <div id="responseDiv" style="border: 2px solid black;">
+    <div id="responseDiv" style="border: 2px solid black; display: none;">
         <p id="response"></p>
     </div>
 </body>

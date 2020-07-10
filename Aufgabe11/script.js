@@ -9,6 +9,7 @@ var Aufgabe11;
     async function handleSendClick() {
         formData = new FormData(document.forms[0]);
         let url = "https://gissose2020maxfla.herokuapp.com";
+        // tslint:disable-next-line: no-any
         let query = new URLSearchParams(formData);
         url += "/send" + "?" + query.toString();
         await fetch(url);
@@ -18,8 +19,10 @@ var Aufgabe11;
         url += "/get";
         let response = await fetch(url);
         let responseText = await response.text();
-        let responseDiv = document.getElementById("response");
-        responseDiv.innerHTML = responseText;
+        let responseP = document.getElementById("response");
+        responseP.innerHTML = responseText;
+        let responseDiv = document.getElementById("responseDiv");
+        responseDiv.style.display = "block";
     }
 })(Aufgabe11 || (Aufgabe11 = {}));
 //# sourceMappingURL=script.js.map

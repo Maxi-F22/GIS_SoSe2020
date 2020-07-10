@@ -22,5 +22,7 @@ namespace Aufgabe11 {
         let responseText: string = await response.text();
         let responseP: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("response");
         responseP.innerHTML = responseText;
+        let responseDiv: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("responseDiv");
+        responseDiv.style.display = "block";
     }
 }
