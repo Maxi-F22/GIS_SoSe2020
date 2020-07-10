@@ -9,6 +9,7 @@ namespace Aufgabe11 {
     async function handleSendClick(): Promise<void> {
         formData = new FormData(document.forms[0]);
         let url: string = "https://gissose2020maxfla.herokuapp.com";
+        // tslint:disable-next-line: no-any
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         url += "/send" + "?" + query.toString();
         await fetch(url);
