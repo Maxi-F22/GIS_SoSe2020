@@ -1,0 +1,215 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(Images/Design/Background.png);
+    text-align: center;
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 0.5s;
+}
+
+header {
+    background-color: burlywood;
+    position: relative;
+    margin-top: -22px;
+    height: 220px;
+}
+
+.logo {
+    position: relative;
+    bottom: -160px;
+    margin-top: -200px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 4em;
+    position: relative;
+    font-family: Brush Script MT, cursive;
+}
+
+h1+h2 {
+    color: rgb(248, 255, 188);
+    font-size: 3em;
+    position: relative;
+    top: -50px;
+    font-family: Brush Script MT, cursive;
+}
+
+header>a {
+    position: absolute;
+    right: 10%;
+    top: 13%;
+}
+
+#burgeropen {
+    cursor: pointer;
+    position: fixed;
+    left: 2%;
+    top: 3%;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: rgb(30, 30, 30);
+    margin: 6px 0;
+}
+
+#burgernav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: beige;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+#burgernav a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    font-size: 2.5em;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 10px;
+}
+
+#burgernav a:hover {
+    background-color: burlywood;
+}
+
+#burgerclose {
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 3%;
+}
+
+#burgerclose .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-6px, 2px);
+    transform: rotate(-45deg) translate(-6px, 2px);
+}
+
+#burgerclose .bar2 {
+    -webkit-transform: rotate(45deg) translate(-6px, -2px);
+    transform: rotate(45deg) translate(-6px, -2px);
+}
+
+#cart {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: beige;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+#cartopen {
+    cursor: pointer;
+    position: fixed;
+    right: 2%;
+    top: 2%;
+}
+
+#cartopen img {
+    width: 50px;
+}
+
+#cartclose {
+    position: absolute;
+    cursor: pointer;
+    left: 5%;
+    top: 3%;
+}
+
+#cartclose .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-6px, 2px);
+    transform: rotate(-45deg) translate(-6px, 2px);
+}
+
+#cartclose .bar2 {
+    -webkit-transform: rotate(45deg) translate(-6px, -2px);
+    transform: rotate(45deg) translate(-6px, -2px);
+}
+
+@media screen and (min-width: 920px) and (max-width: 1440px) {
+    .logo {
+        width: 150px;
+        bottom: -80px;
+    }
+    header {
+        height: 150px;
+    }
+    h1 a {
+        font-size: 2.5em;
+    }
+    h1+h2 {
+        font-size: 2.5em;
+    }
+    header>a {
+        right: 10%;
+        top: 20%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 920px) {
+    .logo {
+        width: 100px;
+        bottom: -50px;
+    }
+    header {
+        height: 100px;
+    }
+    h1 a {
+        font-size: 1.5em;
+    }
+    h1+h2 {
+        font-size: 1.8em;
+        top: -25px;
+    }
+    header>a {
+        right: 2%;
+        top: 75%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .logo {
+        display: none;
+    }
+    header {
+        height: 65px;
+    }
+    h1 a {
+        font-size: 1.3em;
+    }
+    h1+h2 {
+        display: none;
+    }
+    header>a {
+        position: relative;
+        right: initial;
+        top: -28px;
+    }
+    #cartopen {
+        top: 0;
+    }
+    #burgeropen {
+        top: 1%;
+    }
+}
