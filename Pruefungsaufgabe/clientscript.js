@@ -14,6 +14,7 @@ var Pruefungsaufgabe;
     cartDivOpen.addEventListener("click", handleClickCartOpen);
     let cartDivClose = document.getElementById("cartclose");
     cartDivClose.addEventListener("click", handleClickCartClose);
+    //Funktionen für Off-Canvas Menüs
     function handleClickBurgerOpen(_click) {
         if (screen.width <= 600) {
             burgerDivMenu.style.width = "100%";
@@ -45,7 +46,6 @@ var Pruefungsaufgabe;
         burgerDivOpen.style.display = "block";
     }
     let allArticles;
-    //Artikel erzeugen
     getArticles("example.json");
     //Divs für einzelne Kategorien erzeugen
     let containers = document.createElement("div");
@@ -64,6 +64,7 @@ var Pruefungsaufgabe;
     document.getElementById("flex")?.appendChild(flavours);
     document.getElementById("flex")?.appendChild(toppings);
     document.getElementById("flex")?.appendChild(extras);
+    //Überschriften für Kategorien
     let containerHeader = document.createElement("h2");
     containerHeader.innerHTML = "Behälter";
     let containerHeaderDiv = document.createElement("div");
@@ -84,16 +85,68 @@ var Pruefungsaufgabe;
     let extraHeaderDiv = document.createElement("div");
     extraHeaderDiv.setAttribute("class", "cat-header");
     extraHeaderDiv.appendChild(extraHeader);
+    //Kategorien ausblenden
+    let hideContainersDiv = document.createElement("div");
+    hideContainersDiv.setAttribute("class", "hide");
+    hideContainersDiv.addEventListener("click", hideContainers);
+    containerHeaderDiv.appendChild(hideContainersDiv);
+    let hideFlavoursDiv = document.createElement("div");
+    hideFlavoursDiv.setAttribute("class", "hide");
+    hideFlavoursDiv.addEventListener("click", hideFlavours);
+    flavourHeaderDiv.appendChild(hideFlavoursDiv);
+    let hideToppingsDiv = document.createElement("div");
+    hideToppingsDiv.setAttribute("class", "hide");
+    hideToppingsDiv.addEventListener("click", hideToppings);
+    toppingHeaderDiv.appendChild(hideToppingsDiv);
+    let hideExtrasDiv = document.createElement("div");
+    hideExtrasDiv.setAttribute("class", "hide");
+    hideExtrasDiv.addEventListener("click", hideExtras);
+    extraHeaderDiv.appendChild(hideExtrasDiv);
+    if (screen.width <= 600) {
+        hideContainersDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+        hideFlavoursDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+        hideToppingsDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+        hideExtrasDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+    }
+    else {
+        hideContainersDiv.innerHTML = "(Ausblenden)";
+        hideFlavoursDiv.innerHTML = "(Ausblenden)";
+        hideToppingsDiv.innerHTML = "(Ausblenden)";
+        hideExtrasDiv.innerHTML = "(Ausblenden)";
+    }
+    //Kategorien einblenden
+    let showAllButton = document.getElementById("showall");
+    showAllButton.addEventListener("click", showAll);
+    let showContainersLink = document.getElementById("showcontainers");
+    let showFlavoursLink = document.getElementById("showflavours");
+    let showToppingsLink = document.getElementById("showtoppings");
+    let showExtrasLink = document.getElementById("showextras");
+    showContainersLink.addEventListener("click", showContainers);
+    showFlavoursLink.addEventListener("click", showFlavours);
+    showToppingsLink.addEventListener("click", showToppings);
+    showExtrasLink.addEventListener("click", showExtras);
     async function getArticles(_url) {
         let response = await fetch(_url);
         let articlesJson = await response.json();
         allArticles = await JSON.parse(JSON.stringify(articlesJson));
+        //Artikel dynamisch erzeugen
         for (let i = 0; i < allArticles.length; i++) {
             let divElement = document.createElement("div");
             divElement.setAttribute("id", "div" + i);
             let nameElement = document.createElement("h3");
+            nameElement.innerHTML = allArticles[i].name;
             let imgElement = document.createElement("img");
+            imgElement.src = allArticles[i].img;
             let priceElement = document.createElement("p");
+            let priceString = "Preis: " + allArticles[i].price.toString().replace(".", ",") + "€";
+            let buttonElement = document.createElement("button");
+            let descInputElement = document.createElement("h4");
+            descInputElement.innerHTML = "Anzahl auswählen:";
+            let inputElement = document.createElement("INPUT");
+            inputElement.setAttribute("type", "number");
+            inputElement.setAttribute("min", "0");
+            inputElement.setAttribute("class", "numberinput");
+            let breakElement = document.createElement("br");
             if (i == 0) {
                 containers.appendChild(containerHeaderDiv);
             }
@@ -105,7 +158,7 @@ var Pruefungsaufgabe;
                     break;
                 case "Flavours":
                     flavours.appendChild(divElement);
-                    divElement.setAttribute("class", "artikel");
+                    divElement.setAttribute("class", "flavourartikel");
                     toppings.appendChild(toppingHeaderDiv);
                     break;
                 case "Toppings":
@@ -117,14 +170,55 @@ var Pruefungsaufgabe;
                     extras.appendChild(divElement);
                     divElement.setAttribute("class", "artikel");
             }
-            nameElement.innerHTML = allArticles[i].name;
             divElement.appendChild(nameElement);
-            imgElement.src = allArticles[i].img;
             divElement.appendChild(imgElement);
-            let p = `Preis: ${allArticles[i].price.toString()}€`;
-            priceElement.innerHTML = p.italics();
-            divElement.appendChild(priceElement);
+            if (allArticles[i].category == "Containers") {
+                priceElement.innerHTML = "Kostenlos*";
+                divElement.appendChild(priceElement);
+            }
+            else {
+                priceElement.innerHTML = priceString.italics();
+                divElement.appendChild(priceElement);
+            }
+            if (allArticles[i].category == "Flavours") {
+                divElement.appendChild(descInputElement);
+                divElement.appendChild(inputElement);
+                divElement.appendChild(breakElement);
+            }
+            buttonElement.innerHTML = "Auswählen";
+            divElement.appendChild(buttonElement);
         }
+    }
+    //Funktionen für ausblenden/einblenden
+    function hideContainers(_click) {
+        containers.style.display = "none";
+    }
+    function hideFlavours(_click) {
+        flavours.style.display = "none";
+    }
+    function hideToppings(_click) {
+        toppings.style.display = "none";
+    }
+    function hideExtras(_click) {
+        extras.style.display = "none";
+    }
+    function showAll(_click) {
+        containers.style.display = "flex";
+        flavours.style.display = "flex";
+        toppings.style.display = "flex";
+        extras.style.display = "flex";
+    }
+    function showContainers(_click) {
+        containers.style.display = "flex";
+    }
+    function showFlavours(_click) {
+        flavours.style.display = "flex";
+    }
+    function showToppings(_click) {
+        toppings.style.display = "flex";
+    }
+    function showExtras(_click) {
+        extras.style.display = "flex";
     }
 })(Pruefungsaufgabe || (Pruefungsaufgabe = {}));
 //# sourceMappingURL=clientscript.js.map

@@ -19,6 +19,7 @@ namespace Pruefungsaufgabe {
     let cartDivClose: HTMLDivElement = <HTMLDivElement>document.getElementById("cartclose");
     cartDivClose.addEventListener("click", handleClickCartClose);
     
+    //Funktionen für Off-Canvas Menüs
     function handleClickBurgerOpen(_click: Event): void {
         if (screen.width <= 600) {
             burgerDivMenu.style.width = "100%";
@@ -60,7 +61,6 @@ namespace Pruefungsaufgabe {
 
     let allArticles: Artikel[];
 
-    //Artikel erzeugen
     getArticles("example.json");
 
     //Divs für einzelne Kategorien erzeugen
@@ -83,6 +83,7 @@ namespace Pruefungsaufgabe {
     document.getElementById("flex")?.appendChild(toppings);
     document.getElementById("flex")?.appendChild(extras);
 
+    //Überschriften für Kategorien
     let containerHeader: HTMLHeadingElement = document.createElement("h2");
     containerHeader.innerHTML = "Behälter";
     let containerHeaderDiv: HTMLDivElement = document.createElement("div");
@@ -104,18 +105,74 @@ namespace Pruefungsaufgabe {
     extraHeaderDiv.setAttribute("class", "cat-header");
     extraHeaderDiv.appendChild(extraHeader);
 
+    //Kategorien ausblenden
+    let hideContainersDiv: HTMLDivElement = document.createElement("div");
+    hideContainersDiv.setAttribute("class", "hide");
+    hideContainersDiv.addEventListener("click", hideContainers);
+    containerHeaderDiv.appendChild(hideContainersDiv);
+    let hideFlavoursDiv: HTMLDivElement = document.createElement("div");
+    hideFlavoursDiv.setAttribute("class", "hide");
+    hideFlavoursDiv.addEventListener("click", hideFlavours);
+    flavourHeaderDiv.appendChild(hideFlavoursDiv);
+    let hideToppingsDiv: HTMLDivElement = document.createElement("div");
+    hideToppingsDiv.setAttribute("class", "hide");
+    hideToppingsDiv.addEventListener("click", hideToppings);
+    toppingHeaderDiv.appendChild(hideToppingsDiv);
+    let hideExtrasDiv: HTMLDivElement = document.createElement("div");
+    hideExtrasDiv.setAttribute("class", "hide");
+    hideExtrasDiv.addEventListener("click", hideExtras);
+    extraHeaderDiv.appendChild(hideExtrasDiv);
+
+    if (screen.width <= 600) {
+        hideContainersDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+        hideFlavoursDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+        hideToppingsDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+        hideExtrasDiv.innerHTML = "<img src =\"Images/Design/Cross.png\">";
+    } else {
+        hideContainersDiv.innerHTML = "(Ausblenden)";
+        hideFlavoursDiv.innerHTML = "(Ausblenden)";
+        hideToppingsDiv.innerHTML = "(Ausblenden)";
+        hideExtrasDiv.innerHTML = "(Ausblenden)";
+    }
+
+    //Kategorien einblenden
+    let showAllButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("showall");
+    showAllButton.addEventListener("click", showAll);
+    
+    let showContainersLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById("showcontainers");
+    let showFlavoursLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById("showflavours");
+    let showToppingsLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById("showtoppings");
+    let showExtrasLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById("showextras");
+
+    showContainersLink.addEventListener("click", showContainers);
+    showFlavoursLink.addEventListener("click", showFlavours);
+    showToppingsLink.addEventListener("click", showToppings);
+    showExtrasLink.addEventListener("click", showExtras);
+
 
     async function getArticles(_url: RequestInfo): Promise<void> {
         let response: Response = await fetch(_url);
         let articlesJson: JSON = await response.json();
         allArticles = await JSON.parse(JSON.stringify(articlesJson));
 
+        //Artikel dynamisch erzeugen
         for (let i: number = 0; i < allArticles.length; i++) {
             let divElement: HTMLDivElement = document.createElement("div");
             divElement.setAttribute("id", "div" + i);
             let nameElement: HTMLHeadingElement = document.createElement("h3");
+            nameElement.innerHTML = allArticles[i].name;
             let imgElement: HTMLImageElement = document.createElement("img");
+            imgElement.src = allArticles[i].img;
             let priceElement: HTMLParagraphElement = document.createElement("p");
+            let priceString: String = "Preis: " + allArticles[i].price.toString().replace(".", ",") + "€";
+            let buttonElement: HTMLButtonElement = document.createElement("button");
+            let descInputElement: HTMLHeadingElement = document.createElement("h4");
+            descInputElement.innerHTML = "Anzahl auswählen:";
+            let inputElement: HTMLElement = document.createElement("INPUT");
+            inputElement.setAttribute("type", "number");
+            inputElement.setAttribute("min", "0");
+            inputElement.setAttribute("class", "numberinput");
+            let breakElement: HTMLElement = document.createElement("br");
 
             if (i == 0) {
                 containers.appendChild(containerHeaderDiv);
@@ -129,7 +186,7 @@ namespace Pruefungsaufgabe {
                     break;
                 case "Flavours":
                     flavours.appendChild(divElement);
-                    divElement.setAttribute("class", "artikel");
+                    divElement.setAttribute("class", "flavourartikel");
                     toppings.appendChild(toppingHeaderDiv);
                     break;
                 case "Toppings":
@@ -142,13 +199,61 @@ namespace Pruefungsaufgabe {
                     divElement.setAttribute("class", "artikel");
             }
 
-            nameElement.innerHTML = allArticles[i].name;
             divElement.appendChild(nameElement);
-            imgElement.src = allArticles[i].img;
             divElement.appendChild(imgElement);
-            let p: String = `Preis: ${allArticles[i].price.toString()}€`;
-            priceElement.innerHTML = p.italics();
-            divElement.appendChild(priceElement);
+            
+            if (allArticles[i].category == "Containers") {
+                priceElement.innerHTML = "Kostenlos*";
+                divElement.appendChild(priceElement); 
+            } else { 
+                priceElement.innerHTML = priceString.italics();
+                divElement.appendChild(priceElement); 
+            }
+
+            if (allArticles[i].category == "Flavours") {
+                divElement.appendChild(descInputElement);
+                divElement.appendChild(inputElement);
+                divElement.appendChild(breakElement);
+            }
+
+            buttonElement.innerHTML = "Auswählen";
+            divElement.appendChild(buttonElement);
         }
     }
+
+    //Funktionen für ausblenden/einblenden
+    function hideContainers(_click: Event): void {
+        containers.style.display = "none";
+    }
+    function hideFlavours(_click: Event): void {
+        flavours.style.display = "none";
+    }
+    function hideToppings(_click: Event): void {
+        toppings.style.display = "none";
+    }
+    function hideExtras(_click: Event): void {
+        extras.style.display = "none";
+    }
+
+    function showAll(_click: Event): void {
+        containers.style.display = "flex";
+        flavours.style.display = "flex";
+        toppings.style.display = "flex";
+        extras.style.display = "flex";
+    }
+
+    function showContainers(_click: Event): void {
+        containers.style.display = "flex";
+    }
+    function showFlavours(_click: Event): void {
+        flavours.style.display = "flex";
+    }
+    function showToppings(_click: Event): void {
+        toppings.style.display = "flex";
+    }
+    function showExtras(_click: Event): void {
+        extras.style.display = "flex";
+    }
+
+
 }
