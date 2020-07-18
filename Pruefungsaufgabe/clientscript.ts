@@ -1,4 +1,8 @@
 namespace Pruefungsaufgabe {
+    
+
+    
+
     //Off-Canvas Menu
     let burgerDivMenu: HTMLDivElement = <HTMLDivElement>document.getElementById("burgernav");
 
@@ -61,7 +65,8 @@ namespace Pruefungsaufgabe {
 
     let allArticles: Artikel[];
 
-    getArticles("example.json");
+    //getArticles("example.json");
+    receiveArticles();
 
     //Divs für einzelne Kategorien erzeugen
     let containers: HTMLDivElement = document.createElement("div");
@@ -357,6 +362,17 @@ namespace Pruefungsaufgabe {
     }
     function showExtras(_click: Event): void {
         extras.style.display = "flex";
+    }
+
+    
+    //Server + Datenbank Verbindung
+    //let formdata: FormData;
+    async function receiveArticles(): Promise<void> {
+        let url: string = "https://gissose2020maxfla.herokuapp.com/";
+        url += "/get";
+        let response: Response = await fetch(url);
+        let responseText: string = await response.text();
+        getArticles(responseText);
     }
 
 }
