@@ -125,6 +125,39 @@ var Pruefungsaufgabe;
     showFlavoursLink.addEventListener("click", showFlavours);
     showToppingsLink.addEventListener("click", showToppings);
     showExtrasLink.addEventListener("click", showExtras);
+    //Einkaufswagen
+    let artikelCount = 0;
+    let gesamtPreis = 0;
+    let cartContentDiv = document.getElementById("cartcontent");
+    let cartHeading = document.createElement("h2");
+    cartHeading.innerHTML = "Warenkorb";
+    cartContentDiv.appendChild(cartHeading);
+    let cartContainerDiv = document.createElement("div");
+    let cartFlavourDiv = document.createElement("div");
+    let cartToppingDiv = document.createElement("div");
+    let cartExtraDiv = document.createElement("div");
+    cartContainerDiv.setAttribute("class", "cartcategorydiv");
+    cartFlavourDiv.setAttribute("class", "cartcategorydiv");
+    cartToppingDiv.setAttribute("class", "cartcategorydiv");
+    cartExtraDiv.setAttribute("class", "cartcategorydiv");
+    cartContentDiv.appendChild(cartContainerDiv);
+    cartContentDiv.appendChild(cartFlavourDiv);
+    cartContentDiv.appendChild(cartToppingDiv);
+    cartContentDiv.appendChild(cartExtraDiv);
+    let cartContainerDesc = document.createElement("h2");
+    cartContainerDesc.innerHTML = "Ihre ausgewählten Behälter: ";
+    cartContainerDiv.appendChild(cartContainerDesc);
+    let cartFlavourDesc = document.createElement("h2");
+    cartFlavourDesc.innerHTML = "Ihre ausgewählten Eissorten: ";
+    cartFlavourDiv.appendChild(cartFlavourDesc);
+    let cartToppingDesc = document.createElement("h2");
+    cartToppingDesc.innerHTML = "Ihre ausgewählten Toppings: ";
+    cartToppingDiv.appendChild(cartToppingDesc);
+    let cartExtrasDesc = document.createElement("h2");
+    cartExtrasDesc.innerHTML = "Ihre ausgewählten Extras: ";
+    cartExtraDiv.appendChild(cartExtrasDesc);
+    let cartFormDiv = document.getElementById("cartformdiv");
+    let cartPriceParagraph = document.createElement("p");
     async function getArticles(_url) {
         let response = await fetch(_url);
         let articlesJson = await response.json();
@@ -138,14 +171,14 @@ var Pruefungsaufgabe;
             let imgElement = document.createElement("img");
             imgElement.src = allArticles[i].img;
             let priceElement = document.createElement("p");
-            let priceString = "Preis: " + allArticles[i].price.toString().replace(".", ",") + "€";
+            let priceString = "Preis: " + allArticles[i].price.toFixed(2).toString().replace(".", ",") + "€";
             let buttonElement = document.createElement("button");
             let descInputElement = document.createElement("h4");
-            descInputElement.innerHTML = "Anzahl auswählen:";
-            let inputElement = document.createElement("INPUT");
+            descInputElement.innerHTML = "Anzahl an Kugeln:";
+            let inputElement = document.createElement("input");
             inputElement.setAttribute("type", "number");
             inputElement.setAttribute("min", "0");
-            inputElement.setAttribute("class", "numberinput");
+            inputElement.setAttribute("id", "numberinput");
             let breakElement = document.createElement("br");
             if (i == 0) {
                 containers.appendChild(containerHeaderDiv);
@@ -186,7 +219,64 @@ var Pruefungsaufgabe;
                 divElement.appendChild(breakElement);
             }
             buttonElement.innerHTML = "Auswählen";
+            buttonElement.addEventListener("click", toCart);
             divElement.appendChild(buttonElement);
+            function toCart(_click) {
+                if (allArticles[i].category != "Flavours") {
+                    artikelCount++;
+                    gesamtPreis = gesamtPreis + allArticles[i].price;
+                    cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
+                    localStorage.setItem("name" + artikelCount, allArticles[i].name);
+                    localStorage.setItem("img" + artikelCount, allArticles[i].img);
+                    localStorage.setItem("price" + artikelCount, allArticles[i].price.toString());
+                    localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
+                    localStorage.setItem("artikelCount", artikelCount.toString());
+                    cartFormDiv.style.display = "block";
+                    switch (allArticles[i].category) {
+                        case "Containers":
+                            let cartContainerContent = document.createElement("p");
+                            cartContainerDiv.style.display = "block";
+                            cartContainerContent.innerHTML = allArticles[i].name;
+                            cartContainerDiv.appendChild(cartContainerContent);
+                            break;
+                        case "Toppings":
+                            let cartToppingContent = document.createElement("p");
+                            cartToppingDiv.style.display = "block";
+                            cartToppingContent.innerHTML = allArticles[i].name;
+                            cartToppingDiv.appendChild(cartToppingContent);
+                            break;
+                        case "Extras":
+                            let cartExtraContent = document.createElement("p");
+                            cartExtraDiv.style.display = "block";
+                            cartExtraContent.innerHTML = allArticles[i].name;
+                            cartExtraDiv.appendChild(cartExtraContent);
+                    }
+                    cartContentDiv.appendChild(cartPriceParagraph);
+                }
+                else {
+                    if (parseInt(inputElement.value) > 0) {
+                        for (let j = artikelCount; j <= (artikelCount + parseInt(inputElement.value)); j++) {
+                            localStorage.setItem("name" + j, allArticles[i].name);
+                            localStorage.setItem("img" + j, allArticles[i].img);
+                            localStorage.setItem("price" + j, allArticles[i].price.toString());
+                        }
+                        artikelCount = artikelCount + parseInt(inputElement.value);
+                        gesamtPreis = gesamtPreis + (allArticles[i].price * parseInt(inputElement.value));
+                        cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
+                        localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
+                        localStorage.setItem("artikelCount", artikelCount.toString());
+                        cartFormDiv.style.display = "block";
+                        for (let j = 1; j <= parseInt(inputElement.value); j++) {
+                            let cartFlavourContent = document.createElement("p");
+                            cartFlavourDiv.style.display = "block";
+                            cartFlavourContent.innerHTML = allArticles[i].name;
+                            cartFlavourDiv.appendChild(cartFlavourContent);
+                        }
+                        cartContentDiv.appendChild(cartPriceParagraph);
+                        inputElement.value = "";
+                    }
+                }
+            }
         }
     }
     //Funktionen für ausblenden/einblenden
