@@ -48,6 +48,16 @@ var Pruefungsaufgabe;
     let allArticles;
     //getArticles("example.json");
     receiveArticles();
+    //Server + Datenbank Verbindung
+    //let formdata: FormData;
+    async function receiveArticles() {
+        let url = "https://gissose2020maxfla.herokuapp.com";
+        url += "/get";
+        let response = await fetch(url);
+        let responseText = await response.text();
+        console.log(responseText);
+        getArticles(responseText);
+    }
     //Divs für einzelne Kategorien erzeugen
     let containers = document.createElement("div");
     let flavours = document.createElement("div");
@@ -310,15 +320,6 @@ var Pruefungsaufgabe;
     }
     function showExtras(_click) {
         extras.style.display = "flex";
-    }
-    //Server + Datenbank Verbindung
-    //let formdata: FormData;
-    async function receiveArticles() {
-        let url = "https://gissose2020maxfla.herokuapp.com/";
-        url += "/get";
-        let response = await fetch(url);
-        let responseText = await response.text();
-        getArticles(responseText);
     }
 })(Pruefungsaufgabe || (Pruefungsaufgabe = {}));
 //# sourceMappingURL=clientscript.js.map

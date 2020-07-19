@@ -20,6 +20,7 @@ var Pruefungsaufgabe;
     function startServer(_port) {
         let server = Http.createServer();
         server.addListener("request", handleRequest);
+        server.addListener("listening", handleListen);
         server.listen(_port);
     }
     async function connectToDatabase(_url) {
@@ -31,18 +32,21 @@ var Pruefungsaufgabe;
         toppings = mongoClient.db("Shop").collection("Toppings");
         extras = mongoClient.db("Shop").collection("Extras");
     }
+    function handleListen() {
+        console.log("Listening");
+    }
     async function handleRequest(_request, _response) {
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
             let path = url.pathname;
+            let containersResponse = JSON.stringify(await containers.find().toArray());
+            let flavoursResponse = JSON.stringify(await flavours.find().toArray());
+            let toppingsResponse = JSON.stringify(await toppings.find().toArray());
+            let extrasResponse = JSON.stringify(await extras.find().toArray());
+            let responseAll = containersResponse + flavoursResponse + toppingsResponse + extrasResponse;
             if (path == "/get") {
-                let containersResponse = JSON.stringify(await containers.find().toArray());
-                let flavoursResponse = JSON.stringify(await flavours.find().toArray());
-                let toppingsResponse = JSON.stringify(await toppings.find().toArray());
-                let extrasResponse = JSON.stringify(await extras.find().toArray());
-                let responseAll = containersResponse + flavoursResponse + toppingsResponse + extrasResponse;
                 _response.write(responseAll);
             }
         }

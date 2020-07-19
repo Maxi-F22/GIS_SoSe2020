@@ -1,8 +1,5 @@
 namespace Pruefungsaufgabe {
     
-
-    
-
     //Off-Canvas Menu
     let burgerDivMenu: HTMLDivElement = <HTMLDivElement>document.getElementById("burgernav");
 
@@ -67,6 +64,16 @@ namespace Pruefungsaufgabe {
 
     //getArticles("example.json");
     receiveArticles();
+    //Server + Datenbank Verbindung
+    //let formdata: FormData;
+    async function receiveArticles(): Promise<void> {
+        let url: string = "https://gissose2020maxfla.herokuapp.com";
+        url += "/get";
+        let response: Response = await fetch(url);
+        let responseText: string = await response.text();
+        console.log(responseText);
+        getArticles(responseText);
+    }
 
     //Divs für einzelne Kategorien erzeugen
     let containers: HTMLDivElement = document.createElement("div");
@@ -365,14 +372,6 @@ namespace Pruefungsaufgabe {
     }
 
     
-    //Server + Datenbank Verbindung
-    //let formdata: FormData;
-    async function receiveArticles(): Promise<void> {
-        let url: string = "https://gissose2020maxfla.herokuapp.com/";
-        url += "/get";
-        let response: Response = await fetch(url);
-        let responseText: string = await response.text();
-        getArticles(responseText);
-    }
+    
 
 }

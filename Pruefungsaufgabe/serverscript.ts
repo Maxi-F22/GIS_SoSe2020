@@ -24,6 +24,7 @@ export namespace Pruefungsaufgabe {
     function startServer(_port: number | string): void {
         let server: Http.Server = Http.createServer();
         server.addListener("request", handleRequest);
+        server.addListener("listening", handleListen);
         server.listen(_port);
     }
 
@@ -37,6 +38,10 @@ export namespace Pruefungsaufgabe {
         extras = mongoClient.db("Shop").collection("Extras");
     }
 
+    function handleListen(): void {
+        console.log("Listening");
+    }
+
     async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
 
         _response.setHeader("content-type", "text/html; charset=utf-8");
@@ -47,14 +52,14 @@ export namespace Pruefungsaufgabe {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
             let path: string | null = url.pathname;
 
+            let containersResponse: string = JSON.stringify(await containers.find().toArray());
+            let flavoursResponse: string = JSON.stringify(await flavours.find().toArray());
+            let toppingsResponse: string = JSON.stringify(await toppings.find().toArray());
+            let extrasResponse: string = JSON.stringify(await extras.find().toArray());
+
+            let responseAll: string = containersResponse + flavoursResponse + toppingsResponse + extrasResponse;
+
             if (path == "/get") {
-                let containersResponse: string = JSON.stringify(await containers.find().toArray());
-                let flavoursResponse: string = JSON.stringify(await flavours.find().toArray());
-                let toppingsResponse: string = JSON.stringify(await toppings.find().toArray());
-                let extrasResponse: string = JSON.stringify(await extras.find().toArray());
-
-                let responseAll: string = containersResponse + flavoursResponse + toppingsResponse + extrasResponse;
-
                 _response.write(responseAll);
             }
 
