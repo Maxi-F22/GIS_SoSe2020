@@ -53,11 +53,19 @@ export namespace Pruefungsaufgabe {
             let path: string | null = url.pathname;
 
             let containersResponse: string = JSON.stringify(await containers.find().toArray());
+            containersResponse = containersResponse.replace("[", "");
+            containersResponse = containersResponse.replace("]", "");
             let flavoursResponse: string = JSON.stringify(await flavours.find().toArray());
+            flavoursResponse = flavoursResponse.replace("[", "");
+            flavoursResponse = flavoursResponse.replace("]", "");
             let toppingsResponse: string = JSON.stringify(await toppings.find().toArray());
+            toppingsResponse = toppingsResponse.replace("[", "");
+            toppingsResponse = toppingsResponse.replace("]", "");
             let extrasResponse: string = JSON.stringify(await extras.find().toArray());
+            extrasResponse = extrasResponse.replace("[", "");
+            extrasResponse = extrasResponse.replace("]", "");
 
-            let responseAll: string = containersResponse + flavoursResponse + toppingsResponse + extrasResponse;
+            let responseAll: string = "[" + containersResponse + "," + flavoursResponse + "," + toppingsResponse + "," + extrasResponse + "]";
 
             if (path == "/get") {
                 _response.write(responseAll);

@@ -42,10 +42,18 @@ var Pruefungsaufgabe;
             let url = Url.parse(_request.url, true);
             let path = url.pathname;
             let containersResponse = JSON.stringify(await containers.find().toArray());
+            containersResponse = containersResponse.replace("[", "");
+            containersResponse = containersResponse.replace("]", "");
             let flavoursResponse = JSON.stringify(await flavours.find().toArray());
+            flavoursResponse = flavoursResponse.replace("[", "");
+            flavoursResponse = flavoursResponse.replace("]", "");
             let toppingsResponse = JSON.stringify(await toppings.find().toArray());
+            toppingsResponse = toppingsResponse.replace("[", "");
+            toppingsResponse = toppingsResponse.replace("]", "");
             let extrasResponse = JSON.stringify(await extras.find().toArray());
-            let responseAll = containersResponse + flavoursResponse + toppingsResponse + extrasResponse;
+            extrasResponse = extrasResponse.replace("[", "");
+            extrasResponse = extrasResponse.replace("]", "");
+            let responseAll = "[" + containersResponse + "," + flavoursResponse + "," + toppingsResponse + "," + extrasResponse + "]";
             if (path == "/get") {
                 _response.write(responseAll);
             }

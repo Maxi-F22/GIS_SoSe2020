@@ -1,6 +1,9 @@
 "use strict";
 var Pruefungsaufgabe;
 (function (Pruefungsaufgabe) {
+    let formdata;
+    let allArticles;
+    getJson();
     //Off-Canvas Menu
     let burgerDivMenu = document.getElementById("burgernav");
     let burgerDivOpen = document.getElementById("burgeropen");
@@ -44,19 +47,6 @@ var Pruefungsaufgabe;
         cartDivMenu.style.width = "0px";
         mainDiv.style.marginRight = "0px";
         burgerDivOpen.style.display = "block";
-    }
-    let allArticles;
-    //getArticles("example.json");
-    receiveArticles();
-    //Server + Datenbank Verbindung
-    //let formdata: FormData;
-    async function receiveArticles() {
-        let url = "https://gissose2020maxfla.herokuapp.com";
-        url += "/get";
-        let response = await fetch(url);
-        let responseText = await response.text();
-        console.log(responseText);
-        getArticles(responseText);
     }
     //Divs für einzelne Kategorien erzeugen
     let containers = document.createElement("div");
@@ -169,10 +159,20 @@ var Pruefungsaufgabe;
     cartExtraDiv.appendChild(cartExtrasDesc);
     let cartFormDiv = document.getElementById("cartformdiv");
     let cartPriceParagraph = document.createElement("p");
-    async function getArticles(_url) {
-        let response = await fetch(_url);
-        let articlesJson = await response.json();
-        allArticles = await JSON.parse(JSON.stringify(articlesJson));
+    let buttonSend = document.getElementById("buttonsend");
+    buttonSend.addEventListener("click", sendToDB);
+    async function getJson() {
+        let url = "http://localhost:8100";
+        url += "/get";
+        let response = await fetch(url);
+        let responseText = await response.text();
+        console.log(responseText);
+        let responseJson = JSON.parse(responseText);
+        generateArticles(responseJson);
+    }
+    function generateArticles(_responseJson) {
+        allArticles = _responseJson;
+        console.log(allArticles.length);
         //Artikel dynamisch erzeugen
         for (let i = 0; i < allArticles.length; i++) {
             let divElement = document.createElement("div");
@@ -237,11 +237,6 @@ var Pruefungsaufgabe;
                     artikelCount++;
                     gesamtPreis = gesamtPreis + allArticles[i].price;
                     cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
-                    localStorage.setItem("name" + artikelCount, allArticles[i].name);
-                    localStorage.setItem("img" + artikelCount, allArticles[i].img);
-                    localStorage.setItem("price" + artikelCount, allArticles[i].price.toString());
-                    localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
-                    localStorage.setItem("artikelCount", artikelCount.toString());
                     cartFormDiv.style.display = "block";
                     switch (allArticles[i].category) {
                         case "Containers":
@@ -262,14 +257,19 @@ var Pruefungsaufgabe;
                             cartExtraContent.innerHTML = allArticles[i].name;
                             cartExtraDiv.appendChild(cartExtraContent);
                     }
+                    allArticles[i].name = allArticles[i].name.replace(" ", "");
+                    allArticles[i].name = allArticles[i].name.replace("ä", "ae");
+                    allArticles[i].name = allArticles[i].name.replace("ö", "oe");
+                    allArticles[i].name = allArticles[i].name.replace("ü", "ue");
+                    localStorage.setItem("name" + artikelCount, allArticles[i].name);
+                    localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
+                    localStorage.setItem("artikelCount", artikelCount.toString());
                     cartContentDiv.appendChild(cartPriceParagraph);
                 }
                 else {
                     if (parseInt(inputElement.value) > 0) {
-                        for (let j = artikelCount; j <= (artikelCount + parseInt(inputElement.value)); j++) {
+                        for (let j = artikelCount + 1; j <= (artikelCount + parseInt(inputElement.value)); j++) {
                             localStorage.setItem("name" + j, allArticles[i].name);
-                            localStorage.setItem("img" + j, allArticles[i].img);
-                            localStorage.setItem("price" + j, allArticles[i].price.toString());
                         }
                         artikelCount = artikelCount + parseInt(inputElement.value);
                         gesamtPreis = gesamtPreis + (allArticles[i].price * parseInt(inputElement.value));
@@ -320,6 +320,24 @@ var Pruefungsaufgabe;
     }
     function showExtras(_click) {
         extras.style.display = "flex";
+    }
+    async function sendToDB(_click) {
+        formdata = new FormData(document.forms[0]);
+        let url = "https://gissose2020maxfla.herokuapp.com";
+        url += "/send";
+        // tslint:disable-next-line: no-any
+        let query = new URLSearchParams(formdata);
+        url += "?" + query.toString();
+        for (let i = 1; i <= artikelCount; i++) {
+            url += "&artikel=" + localStorage.getItem("name" + i);
+        }
+        url += "&preis=" + localStorage.getItem("gesamtPreis");
+        url += "&anzahl=" + localStorage.getItem("artikelCount");
+        console.log(url);
+        await fetch(url);
+        localStorage.clear();
+        let cartForm = document.getElementById("cartform");
+        cartForm.reset();
     }
 })(Pruefungsaufgabe || (Pruefungsaufgabe = {}));
 //# sourceMappingURL=clientscript.js.map

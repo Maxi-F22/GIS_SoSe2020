@@ -1,4 +1,17 @@
 namespace Pruefungsaufgabe {
+    let formdata: FormData;
+
+    interface Artikel {
+        _id: string;
+        name: string;
+        img: string;
+        price: number;
+        category: string;
+    }
+
+    let allArticles: Artikel[];
+    getJson();
+    
     
     //Off-Canvas Menu
     let burgerDivMenu: HTMLDivElement = <HTMLDivElement>document.getElementById("burgernav");
@@ -53,27 +66,7 @@ namespace Pruefungsaufgabe {
         burgerDivOpen.style.display = "block";
     }
 
-    interface Artikel {
-        name: string;
-        img: string;
-        price: number;
-        category: string;
-    }
-
-    let allArticles: Artikel[];
-
-    //getArticles("example.json");
-    receiveArticles();
-    //Server + Datenbank Verbindung
-    //let formdata: FormData;
-    async function receiveArticles(): Promise<void> {
-        let url: string = "https://gissose2020maxfla.herokuapp.com";
-        url += "/get";
-        let response: Response = await fetch(url);
-        let responseText: string = await response.text();
-        console.log(responseText);
-        getArticles(responseText);
-    }
+    
 
     //Divs für einzelne Kategorien erzeugen
     let containers: HTMLDivElement = document.createElement("div");
@@ -195,12 +188,24 @@ namespace Pruefungsaufgabe {
     cartExtraDiv.appendChild(cartExtrasDesc);
     let cartFormDiv: HTMLDivElement = <HTMLDivElement>document.getElementById("cartformdiv");
     let cartPriceParagraph: HTMLParagraphElement = document.createElement("p");
+    let buttonSend: HTMLButtonElement = <HTMLButtonElement>document.getElementById("buttonsend");
+    buttonSend.addEventListener("click", sendToDB);
+
+    async function getJson(): Promise<void> {
+        let url: string = "http://localhost:8100";
+        url += "/get";
+        let response: Response = await fetch(url);
+        let responseText: string = await response.text();
+        console.log(responseText);
+        let responseJson: Artikel[] = JSON.parse(responseText);
+        generateArticles(responseJson);
+    }
 
 
-    async function getArticles(_url: RequestInfo): Promise<void> {
-        let response: Response = await fetch(_url);
-        let articlesJson: JSON = await response.json();
-        allArticles = await JSON.parse(JSON.stringify(articlesJson));
+    function generateArticles(_responseJson: Artikel[]): void {
+     
+        allArticles = _responseJson;
+        console.log(allArticles.length);
 
         //Artikel dynamisch erzeugen
         for (let i: number = 0; i < allArticles.length; i++) {
@@ -274,13 +279,7 @@ namespace Pruefungsaufgabe {
                     artikelCount++;
                     gesamtPreis = gesamtPreis + allArticles[i].price;
                     cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
-
-                    localStorage.setItem("name" + artikelCount, allArticles[i].name);
-                    localStorage.setItem("img" + artikelCount, allArticles[i].img);
-                    localStorage.setItem("price" + artikelCount, allArticles[i].price.toString());
-                    localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
-                    localStorage.setItem("artikelCount", artikelCount.toString());
-
+                    
                     cartFormDiv.style.display = "block";
 
                     switch (allArticles[i].category) {
@@ -302,14 +301,22 @@ namespace Pruefungsaufgabe {
                             cartExtraContent.innerHTML = allArticles[i].name;
                             cartExtraDiv.appendChild(cartExtraContent);
                     }
+                    
+                    allArticles[i].name = allArticles[i].name.replace(" ", "");
+                    allArticles[i].name = allArticles[i].name.replace("ä", "ae");
+                    allArticles[i].name = allArticles[i].name.replace("ö", "oe");
+                    allArticles[i].name = allArticles[i].name.replace("ü", "ue");
+                    localStorage.setItem("name" + artikelCount, allArticles[i].name);
+                    localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
+                    localStorage.setItem("artikelCount", artikelCount.toString());
+
+                    
                     cartContentDiv.appendChild(cartPriceParagraph);
                 }
                 else {
                     if (parseInt(inputElement.value) > 0) {
-                        for (let j: number = artikelCount; j <= (artikelCount + parseInt(inputElement.value)); j++) {
+                        for (let j: number = artikelCount + 1; j <= (artikelCount + parseInt(inputElement.value)); j++) {
                             localStorage.setItem("name" + j, allArticles[i].name);
-                            localStorage.setItem("img" + j, allArticles[i].img);
-                            localStorage.setItem("price" + j, allArticles[i].price.toString());
                         }
 
                         artikelCount = artikelCount + parseInt(inputElement.value);
@@ -329,7 +336,6 @@ namespace Pruefungsaufgabe {
                         }
 
                         cartContentDiv.appendChild(cartPriceParagraph);
-
                         inputElement.value = "";
                     }
                 }
@@ -371,7 +377,24 @@ namespace Pruefungsaufgabe {
         extras.style.display = "flex";
     }
 
-    
-    
+
+    async function sendToDB(_click: Event): Promise<void> {
+        formdata = new FormData(document.forms[0]);
+        let url: string = "https://gissose2020maxfla.herokuapp.com";
+        url += "/send";
+        // tslint:disable-next-line: no-any
+        let query: URLSearchParams = new URLSearchParams(<any>formdata);
+        url += "?" + query.toString();
+        for (let i: number = 1; i <= artikelCount; i++) {
+            url += "&artikel=" + localStorage.getItem("name" + i);
+        }
+        url += "&preis=" + localStorage.getItem("gesamtPreis");
+        url += "&anzahl=" + localStorage.getItem("artikelCount");
+        console.log(url);
+        await fetch(url);
+        localStorage.clear();
+        let cartForm: HTMLFormElement = <HTMLFormElement>document.getElementById("cartform");
+        cartForm.reset();
+    }
 
 }
