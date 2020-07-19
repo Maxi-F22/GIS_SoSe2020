@@ -8,6 +8,7 @@ export namespace Pruefungsaufgabe {
     let flavours: Mongo.Collection;
     let toppings: Mongo.Collection;
     let extras: Mongo.Collection;
+    let orders: Mongo.Collection;
 
     let dataBaseUrl: string = "mongodb+srv://Testuser:qwer1234@maxigis.3ftzn.mongodb.net/Test?retryWrites=true&w=majority";
 
@@ -36,6 +37,7 @@ export namespace Pruefungsaufgabe {
         flavours = mongoClient.db("Shop").collection("Flavours");
         toppings = mongoClient.db("Shop").collection("Toppings");
         extras = mongoClient.db("Shop").collection("Extras");
+        orders = mongoClient.db("Shopowner").collection("Orders");
     }
 
     function handleListen(): void {
@@ -67,8 +69,12 @@ export namespace Pruefungsaufgabe {
 
             let responseAll: string = "[" + containersResponse + "," + flavoursResponse + "," + toppingsResponse + "," + extrasResponse + "]";
 
-            if (path == "/get") {
+            if (path == "/getclient") {
                 _response.write(responseAll);
+            }
+
+            else if (path == "/send") {
+                orders.insertOne(url.query);
             }
 
         }

@@ -11,8 +11,8 @@ namespace Pruefungsaufgabe {
 
     let allArticles: Artikel[];
     getJson();
-    
-    
+
+
     //Off-Canvas Menu
     let burgerDivMenu: HTMLDivElement = <HTMLDivElement>document.getElementById("burgernav");
 
@@ -66,7 +66,7 @@ namespace Pruefungsaufgabe {
         burgerDivOpen.style.display = "block";
     }
 
-    
+
 
     //Divs für einzelne Kategorien erzeugen
     let containers: HTMLDivElement = document.createElement("div");
@@ -192,8 +192,8 @@ namespace Pruefungsaufgabe {
     buttonSend.addEventListener("click", sendToDB);
 
     async function getJson(): Promise<void> {
-        let url: string = "http://localhost:8100";
-        url += "/get";
+        let url: string = "https://gissose2020maxfla.herokuapp.com";
+        url += "/getclient";
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
         console.log(responseText);
@@ -203,7 +203,7 @@ namespace Pruefungsaufgabe {
 
 
     function generateArticles(_responseJson: Artikel[]): void {
-     
+
         allArticles = _responseJson;
         console.log(allArticles.length);
 
@@ -279,7 +279,7 @@ namespace Pruefungsaufgabe {
                     artikelCount++;
                     gesamtPreis = gesamtPreis + allArticles[i].price;
                     cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
-                    
+
                     cartFormDiv.style.display = "block";
 
                     switch (allArticles[i].category) {
@@ -301,22 +301,25 @@ namespace Pruefungsaufgabe {
                             cartExtraContent.innerHTML = allArticles[i].name;
                             cartExtraDiv.appendChild(cartExtraContent);
                     }
-                    
+
                     allArticles[i].name = allArticles[i].name.replace(" ", "");
                     allArticles[i].name = allArticles[i].name.replace("ä", "ae");
                     allArticles[i].name = allArticles[i].name.replace("ö", "oe");
                     allArticles[i].name = allArticles[i].name.replace("ü", "ue");
+                    allArticles[i].name = allArticles[i].name.replace("ß", "ss");
                     localStorage.setItem("name" + artikelCount, allArticles[i].name);
+                    localStorage.setItem("category" + artikelCount, allArticles[i].category);
                     localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
                     localStorage.setItem("artikelCount", artikelCount.toString());
 
-                    
+
                     cartContentDiv.appendChild(cartPriceParagraph);
                 }
                 else {
                     if (parseInt(inputElement.value) > 0) {
                         for (let j: number = artikelCount + 1; j <= (artikelCount + parseInt(inputElement.value)); j++) {
                             localStorage.setItem("name" + j, allArticles[i].name);
+                            localStorage.setItem("category" + j, allArticles[i].category);
                         }
 
                         artikelCount = artikelCount + parseInt(inputElement.value);
@@ -386,7 +389,19 @@ namespace Pruefungsaufgabe {
         let query: URLSearchParams = new URLSearchParams(<any>formdata);
         url += "?" + query.toString();
         for (let i: number = 1; i <= artikelCount; i++) {
-            url += "&artikel=" + localStorage.getItem("name" + i);
+            switch (localStorage.getItem("category" + i)) {
+                case "Containers":
+                    url += "&behaelter=" + localStorage.getItem("name" + i);
+                    break;
+                case "Flavours":
+                    url += "&sorten=" + localStorage.getItem("name" + i);
+                    break;
+                case "Toppings":
+                    url += "&toppings=" + localStorage.getItem("name" + i);
+                    break;
+                case "Extras":
+                    url += "&extras=" + localStorage.getItem("name" + i);
+            }
         }
         url += "&preis=" + localStorage.getItem("gesamtPreis");
         url += "&anzahl=" + localStorage.getItem("artikelCount");

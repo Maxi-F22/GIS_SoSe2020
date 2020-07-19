@@ -10,6 +10,7 @@ var Pruefungsaufgabe;
     let flavours;
     let toppings;
     let extras;
+    let orders;
     let dataBaseUrl = "mongodb+srv://Testuser:qwer1234@maxigis.3ftzn.mongodb.net/Test?retryWrites=true&w=majority";
     let port = Number(process.env.PORT);
     if (!port) {
@@ -31,6 +32,7 @@ var Pruefungsaufgabe;
         flavours = mongoClient.db("Shop").collection("Flavours");
         toppings = mongoClient.db("Shop").collection("Toppings");
         extras = mongoClient.db("Shop").collection("Extras");
+        orders = mongoClient.db("Shopowner").collection("Orders");
     }
     function handleListen() {
         console.log("Listening");
@@ -54,8 +56,11 @@ var Pruefungsaufgabe;
             extrasResponse = extrasResponse.replace("[", "");
             extrasResponse = extrasResponse.replace("]", "");
             let responseAll = "[" + containersResponse + "," + flavoursResponse + "," + toppingsResponse + "," + extrasResponse + "]";
-            if (path == "/get") {
+            if (path == "/getclient") {
                 _response.write(responseAll);
+            }
+            else if (path == "/send") {
+                orders.insertOne(url.query);
             }
         }
         _response.end();
