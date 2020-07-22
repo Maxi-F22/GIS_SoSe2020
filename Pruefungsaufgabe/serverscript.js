@@ -62,6 +62,34 @@ var Pruefungsaufgabe;
             else if (path == "/send") {
                 orders.insertOne(url.query);
             }
+            else if (path == "/getadmin") {
+                _response.write(JSON.stringify(await orders.find().toArray()));
+            }
+            else if (path == "/delete") {
+                for (let i in url.query) {
+                    let idValue = url.query[i];
+                    let orderId = new Mongo.ObjectID(idValue);
+                    orders.deleteOne({ _id: orderId });
+                }
+            }
+            else if (path == "/edit") {
+                let idString = "";
+                let streetString = "";
+                let cityString = "";
+                for (let i in url.query) {
+                    if (i == "_id") {
+                        idString = url.query[i];
+                    }
+                    else if (i == "strasse") {
+                        streetString = url.query[i];
+                    }
+                    else if (i == "stadt") {
+                        cityString = url.query[i];
+                    }
+                }
+                let orderId = new Mongo.ObjectID(idString);
+                orders.updateOne({ _id: orderId }, { $set: { strasse: streetString, stadt: cityString } });
+            }
         }
         _response.end();
     }

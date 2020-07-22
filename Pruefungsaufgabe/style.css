@@ -108,6 +108,15 @@ button {
     border-radius: 10px;
 }
 
+.adminbutton {
+    width: 220px;
+    margin: 20px;
+}
+
+#admineditbutton {
+    margin-top: 20px;
+}
+
 #showall {
     margin-top: 10px;
 }
@@ -140,20 +149,24 @@ header>a {
     top: 13%;
 }
 
-
-/*Off-Canvas Menu: Anleitung von W3 Schools befolgt: https://www.w3schools.com/howto/howto_js_off-canvas.asp*/
-
 #burgeropen {
     cursor: pointer;
     position: fixed;
     left: 2%;
     top: 3%;
     z-index: 1;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: rgb(182, 148, 105);
 }
 
 .bar1,
 .bar2,
 .bar3 {
+    position: relative;
+    left: 8px;
+    top: 5px;
     width: 35px;
     height: 5px;
     background-color: rgb(30, 30, 30);
@@ -221,12 +234,19 @@ header>a {
     cursor: pointer;
     position: fixed;
     right: 2%;
-    top: 2%;
+    top: 3%;
     z-index: 1;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: rgb(182, 148, 105);
 }
 
 #cartopen img {
+    position: relative;
     width: 50px;
+    right: 3px;
+    bottom: 1px;
 }
 
 #cartclose {
@@ -268,6 +288,10 @@ header>a {
     font-size: 1.5em;
 }
 
+#cartstartoverbutton {
+    margin: 20px;
+}
+
 .cartcategorydiv {
     display: none;
 }
@@ -278,6 +302,16 @@ header>a {
     text-align: right;
     top: -120px;
     right: 1%;
+}
+
+.adminordersdiv {
+    background-color: bisque;
+    margin-top: 25px;
+    padding: 20px;
+}
+
+.adminordersdiv>h3 {
+    font-size: 1.5em;
 }
 
 @media screen and (min-width: 920px) and (max-width: 1440px) {
@@ -340,7 +374,7 @@ header>a {
         top: -28px;
     }
     #cartopen {
-        top: 0;
+        top: 1%;
     }
     #burgeropen {
         top: 1%;

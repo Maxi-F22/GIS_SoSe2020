@@ -133,6 +133,10 @@ var Pruefungsaufgabe;
     let cartHeading = document.createElement("h2");
     cartHeading.innerHTML = "Warenkorb";
     cartContentDiv.appendChild(cartHeading);
+    let cartStartOverButton = document.createElement("button");
+    cartStartOverButton.setAttribute("id", "cartstartoverbutton");
+    cartStartOverButton.innerHTML = "Neu anfangen";
+    cartStartOverButton.addEventListener("click", deleteCart);
     let cartContainerDiv = document.createElement("div");
     let cartFlavourDiv = document.createElement("div");
     let cartToppingDiv = document.createElement("div");
@@ -166,13 +170,11 @@ var Pruefungsaufgabe;
         url += "/getclient";
         let response = await fetch(url);
         let responseText = await response.text();
-        console.log(responseText);
         let responseJson = JSON.parse(responseText);
         generateArticles(responseJson);
     }
     function generateArticles(_responseJson) {
         allArticles = _responseJson;
-        console.log(allArticles.length);
         //Artikel dynamisch erzeugen
         for (let i = 0; i < allArticles.length; i++) {
             let divElement = document.createElement("div");
@@ -233,11 +235,11 @@ var Pruefungsaufgabe;
             buttonElement.addEventListener("click", toCart);
             divElement.appendChild(buttonElement);
             function toCart(_click) {
+                cartFormDiv.style.display = "block";
                 if (allArticles[i].category != "Flavours") {
                     artikelCount++;
                     gesamtPreis = gesamtPreis + allArticles[i].price;
                     cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
-                    cartFormDiv.style.display = "block";
                     switch (allArticles[i].category) {
                         case "Containers":
                             let cartContainerContent = document.createElement("p");
@@ -257,29 +259,22 @@ var Pruefungsaufgabe;
                             cartExtraContent.innerHTML = allArticles[i].name;
                             cartExtraDiv.appendChild(cartExtraContent);
                     }
-                    allArticles[i].name = allArticles[i].name.replace(" ", "");
-                    allArticles[i].name = allArticles[i].name.replace("ä", "ae");
-                    allArticles[i].name = allArticles[i].name.replace("ö", "oe");
-                    allArticles[i].name = allArticles[i].name.replace("ü", "ue");
-                    allArticles[i].name = allArticles[i].name.replace("ß", "ss");
                     localStorage.setItem("name" + artikelCount, allArticles[i].name);
-                    localStorage.setItem("category" + artikelCount, allArticles[i].category);
                     localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
                     localStorage.setItem("artikelCount", artikelCount.toString());
                     cartContentDiv.appendChild(cartPriceParagraph);
+                    cartContentDiv.appendChild(cartStartOverButton);
                 }
                 else {
                     if (parseInt(inputElement.value) > 0) {
                         for (let j = artikelCount + 1; j <= (artikelCount + parseInt(inputElement.value)); j++) {
                             localStorage.setItem("name" + j, allArticles[i].name);
-                            localStorage.setItem("category" + j, allArticles[i].category);
                         }
                         artikelCount = artikelCount + parseInt(inputElement.value);
                         gesamtPreis = gesamtPreis + (allArticles[i].price * parseInt(inputElement.value));
                         cartPriceParagraph.innerHTML = "Gesamtpreis: " + gesamtPreis.toFixed(2).toString().replace(".", ",") + "€";
                         localStorage.setItem("gesamtPreis", gesamtPreis.toFixed(2).toString());
                         localStorage.setItem("artikelCount", artikelCount.toString());
-                        cartFormDiv.style.display = "block";
                         for (let j = 1; j <= parseInt(inputElement.value); j++) {
                             let cartFlavourContent = document.createElement("p");
                             cartFlavourDiv.style.display = "block";
@@ -287,6 +282,7 @@ var Pruefungsaufgabe;
                             cartFlavourDiv.appendChild(cartFlavourContent);
                         }
                         cartContentDiv.appendChild(cartPriceParagraph);
+                        cartContentDiv.appendChild(cartStartOverButton);
                         inputElement.value = "";
                     }
                 }
@@ -332,27 +328,61 @@ var Pruefungsaufgabe;
         let query = new URLSearchParams(formdata);
         url += "?" + query.toString();
         for (let i = 1; i <= artikelCount; i++) {
-            switch (localStorage.getItem("category" + i)) {
-                case "Containers":
-                    url += "&behaelter=" + localStorage.getItem("name" + i);
-                    break;
-                case "Flavours":
-                    url += "&sorten=" + localStorage.getItem("name" + i);
-                    break;
-                case "Toppings":
-                    url += "&toppings=" + localStorage.getItem("name" + i);
-                    break;
-                case "Extras":
-                    url += "&extras=" + localStorage.getItem("name" + i);
-            }
+            url += "&artikel=" + localStorage.getItem("name" + i);
         }
         url += "&preis=" + localStorage.getItem("gesamtPreis");
         url += "&anzahl=" + localStorage.getItem("artikelCount");
-        console.log(url);
         await fetch(url);
+        for (let i = cartContainerDiv.childElementCount - 1; i > 0; i--) {
+            cartContainerDiv.removeChild(cartContainerDiv.childNodes[i]);
+        }
+        for (let i = cartFlavourDiv.childElementCount - 1; i > 0; i--) {
+            cartFlavourDiv.removeChild(cartFlavourDiv.childNodes[i]);
+        }
+        for (let i = cartToppingDiv.childElementCount - 1; i > 0; i--) {
+            cartToppingDiv.removeChild(cartToppingDiv.childNodes[i]);
+        }
+        for (let i = cartExtraDiv.childElementCount - 1; i > 0; i--) {
+            cartExtraDiv.removeChild(cartExtraDiv.childNodes[i]);
+        }
+        artikelCount = 0;
+        gesamtPreis = 0;
         localStorage.clear();
         let cartForm = document.getElementById("cartform");
         cartForm.reset();
+        cartFormDiv.style.display = "none";
+        cartContainerDiv.style.display = "none";
+        cartFlavourDiv.style.display = "none";
+        cartToppingDiv.style.display = "none";
+        cartExtraDiv.style.display = "none";
+        cartContentDiv.removeChild(cartPriceParagraph);
+        cartContentDiv.removeChild(cartStartOverButton);
+    }
+    function deleteCart(_click) {
+        for (let i = cartContainerDiv.childElementCount - 1; i > 0; i--) {
+            cartContainerDiv.removeChild(cartContainerDiv.childNodes[i]);
+        }
+        for (let i = cartFlavourDiv.childElementCount - 1; i > 0; i--) {
+            cartFlavourDiv.removeChild(cartFlavourDiv.childNodes[i]);
+        }
+        for (let i = cartToppingDiv.childElementCount - 1; i > 0; i--) {
+            cartToppingDiv.removeChild(cartToppingDiv.childNodes[i]);
+        }
+        for (let i = cartExtraDiv.childElementCount - 1; i > 0; i--) {
+            cartExtraDiv.removeChild(cartExtraDiv.childNodes[i]);
+        }
+        artikelCount = 0;
+        gesamtPreis = 0;
+        localStorage.clear();
+        let cartForm = document.getElementById("cartform");
+        cartForm.reset();
+        cartFormDiv.style.display = "none";
+        cartContainerDiv.style.display = "none";
+        cartFlavourDiv.style.display = "none";
+        cartToppingDiv.style.display = "none";
+        cartExtraDiv.style.display = "none";
+        cartContentDiv.removeChild(cartPriceParagraph);
+        cartContentDiv.removeChild(cartStartOverButton);
     }
 })(Pruefungsaufgabe || (Pruefungsaufgabe = {}));
 //# sourceMappingURL=clientscript.js.map

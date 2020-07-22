@@ -69,6 +69,7 @@ export namespace Pruefungsaufgabe {
 
             let responseAll: string = "[" + containersResponse + "," + flavoursResponse + "," + toppingsResponse + "," + extrasResponse + "]";
 
+
             if (path == "/getclient") {
                 _response.write(responseAll);
             }
@@ -76,6 +77,39 @@ export namespace Pruefungsaufgabe {
             else if (path == "/send") {
                 orders.insertOne(url.query);
             }
+
+            else if (path == "/getadmin") {
+                _response.write(JSON.stringify(await orders.find().toArray()));
+            }
+
+            else if (path == "/delete") {
+                for (let i in url.query) {
+                    let idValue: string = <string>url.query[i];
+                    let orderId: Mongo.ObjectID = new Mongo.ObjectID(idValue);
+                    orders.deleteOne({ _id: orderId });
+                }
+            }
+
+            else if (path == "/edit") {
+                let idString: string = "";
+                let streetString: string = "";
+                let cityString: string = "";
+                for (let i in url.query) {
+                    if (i == "_id") {
+                        idString = <string>url.query[i];
+                    }
+                    else if (i == "strasse") {
+                        streetString = <string>url.query[i];
+                    }
+                    else if (i == "stadt") {
+                        cityString = <string>url.query[i];
+                    }
+                }
+                let orderId: Mongo.ObjectID = new Mongo.ObjectID(idString);
+                orders.updateOne({ _id: orderId }, { $set: { strasse: streetString, stadt: cityString } });
+                
+            }
+
 
         }
 

@@ -8,7 +8,7 @@ var Aufgabe11;
     retrieveClick.addEventListener("click", handleRetrieveClick);
     async function handleSendClick() {
         formData = new FormData(document.forms[0]);
-        let url = "https://gissose2020maxfla.herokuapp.com";
+        let url = "http://localhost:8100";
         // tslint:disable-next-line: no-any
         let query = new URLSearchParams(formData);
         url += "/send" + "?" + query.toString();
