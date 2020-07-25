@@ -47,7 +47,15 @@ namespace Pruefungsaufgabe {
             ordersDiv.appendChild(ordersAdresse);
 
             let ordersArticles: HTMLParagraphElement = document.createElement("p");
-            ordersArticles.innerHTML = orders[i].artikel;
+            let ordersArticlesString: string = orders[i].artikel.toString();
+            let ordersArticlesArray: string[] = ordersArticlesString.split(",");
+            for (let j: number = 0; j < ordersArticlesArray.length; j++) {
+                if (j == ordersArticlesArray.length - 1) {
+                    ordersArticles.innerHTML += ordersArticlesArray[j];
+                } else {
+                    ordersArticles.innerHTML += ordersArticlesArray[j] + ", ";
+                }
+            }
             ordersDiv.appendChild(ordersArticles);
 
             let ordersCount: HTMLParagraphElement = document.createElement("p");

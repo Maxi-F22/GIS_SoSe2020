@@ -5,7 +5,7 @@
 body {
     background-image: url(Images/Design/Background.png);
     text-align: center;
-    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    font-family: Roboto;
     margin-left: auto;
     margin-right: auto;
 }
@@ -131,8 +131,9 @@ h1 a {
     text-decoration: none;
     color: whitesmoke;
     font-size: 4em;
+    letter-spacing: -8px;
     position: relative;
-    font-family: Brush Script MT, cursive;
+    font-family: Palatino;
 }
 
 h1+h2 {
@@ -140,7 +141,7 @@ h1+h2 {
     font-size: 3em;
     position: relative;
     top: -50px;
-    font-family: Brush Script MT, cursive;
+    font-family: Palatino;
 }
 
 header>a {
@@ -308,6 +309,7 @@ header>a {
     background-color: bisque;
     margin-top: 25px;
     padding: 20px;
+    width: 100%;
 }
 
 .adminordersdiv>h3 {
@@ -324,6 +326,7 @@ header>a {
     }
     h1 a {
         font-size: 2.5em;
+        letter-spacing: -5px;
     }
     h1+h2 {
         font-size: 2.5em;
@@ -344,9 +347,10 @@ header>a {
     }
     h1 a {
         font-size: 1.5em;
+        letter-spacing: -4px;
     }
     h1+h2 {
-        font-size: 1.8em;
+        font-size: 1.5em;
         top: -25px;
     }
     header>a {
@@ -364,6 +368,7 @@ header>a {
     }
     h1 a {
         font-size: 1.3em;
+        letter-spacing: -3px;
     }
     h1+h2 {
         display: none;

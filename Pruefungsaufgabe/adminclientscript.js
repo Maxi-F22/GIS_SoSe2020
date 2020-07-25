@@ -29,7 +29,16 @@ var Pruefungsaufgabe;
             ordersAdresse.innerHTML = orders[i].strasse + ", " + orders[i].stadt;
             ordersDiv.appendChild(ordersAdresse);
             let ordersArticles = document.createElement("p");
-            ordersArticles.innerHTML = orders[i].artikel;
+            let ordersArticlesString = orders[i].artikel.toString();
+            let ordersArticlesArray = ordersArticlesString.split(",");
+            for (let j = 0; j < ordersArticlesArray.length; j++) {
+                if (j == ordersArticlesArray.length - 1) {
+                    ordersArticles.innerHTML += ordersArticlesArray[j];
+                }
+                else {
+                    ordersArticles.innerHTML += ordersArticlesArray[j] + ", ";
+                }
+            }
             ordersDiv.appendChild(ordersArticles);
             let ordersCount = document.createElement("p");
             ordersCount.innerHTML = orders[i].anzahl + " Artikel";
