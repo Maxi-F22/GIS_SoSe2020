@@ -100,13 +100,12 @@ h2 {
     color: rgb(99, 99, 66);
     font-size: 3em;
     letter-spacing: -3px;
-    margin-top: 2em;
+    
 }
 
 .Kat {
     display: block;
     width: 100%;
-    margin-top: 30px;
 }
 
 h3 {
@@ -166,7 +165,6 @@ h3 {
     background-color: darkturquoise;
     text-align: center;
     float: left;
-    margin-top: 5%;
     padding: 10px;
     border: 1px solid black;
     width: 300px;
@@ -183,7 +181,6 @@ h3 {
     background-color: darkturquoise;
     text-align: center;
     float: left;
-    margin-top: 5%;
     padding: 10px;
     border: 1px solid black;
     width: 300px;

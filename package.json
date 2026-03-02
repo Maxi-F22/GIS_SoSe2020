@@ -1,16 +1,14 @@
 {
     "name": "gis_sose2020",
     "version": "1.0.0",
-    "description": "herokuserverpackage",
+    "description": "Static GitHub Pages demo shop",
     "main": "index.js",
     "dependencies": {
-        "@types/mongodb": "^3.5.25",
         "@types/node": "^14.0.14",
-        "mongodb": "^3.5.9"
+        "typescript": "^5.9.3"
     },
-    "devDependencies": {},
     "scripts": {
-        "start": "node Pruefungsaufgabe/serverscript.js remote"
+        "start": "npx http-server . -p 8100"
     },
     "repository": {
         "type": "git",

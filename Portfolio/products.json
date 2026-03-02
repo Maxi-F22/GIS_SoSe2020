@@ -1,0 +1,28 @@
+﻿[
+  { "id": "container-becher", "name": "Becher", "img": "Images/Containers/Becher.png", "price": 0, "category": "Containers" },
+  { "id": "container-waffel", "name": "Waffel", "img": "Images/Containers/Waffel.png", "price": 0, "category": "Containers" },
+  { "id": "container-waffelbecher", "name": "Waffelbecher", "img": "Images/Containers/Waffelbecher.png", "price": 0, "category": "Containers" },
+
+  { "id": "flavour-apfel", "name": "Apfel", "img": "Images/Flavours/Apfel.png", "price": 1.2, "category": "Flavours" },
+  { "id": "flavour-cookies", "name": "Cookies", "img": "Images/Flavours/Cookies.png", "price": 1.2, "category": "Flavours" },
+  { "id": "flavour-erdbeere", "name": "Erdbeere", "img": "Images/Flavours/Erdbeere.png", "price": 1.2, "category": "Flavours" },
+  { "id": "flavour-himbeere", "name": "Himbeere", "img": "Images/Flavours/Himbeere.png", "price": 1.2, "category": "Flavours" },
+  { "id": "flavour-karamell", "name": "Karamell", "img": "Images/Flavours/Karamell.png", "price": 1.3, "category": "Flavours" },
+  { "id": "flavour-limette", "name": "Limette", "img": "Images/Flavours/Limette.png", "price": 1.2, "category": "Flavours" },
+  { "id": "flavour-mango", "name": "Mango", "img": "Images/Flavours/Mango.png", "price": 1.3, "category": "Flavours" },
+  { "id": "flavour-nuss", "name": "Nuss", "img": "Images/Flavours/Nuss.png", "price": 1.3, "category": "Flavours" },
+  { "id": "flavour-schokolade", "name": "Schokolade", "img": "Images/Flavours/Schokolade.png", "price": 1.3, "category": "Flavours" },
+  { "id": "flavour-stracciatella", "name": "Stracciatella", "img": "Images/Flavours/Stracciatella.png", "price": 1.3, "category": "Flavours" },
+  { "id": "flavour-vanille", "name": "Vanille", "img": "Images/Flavours/Vanille.png", "price": 1.2, "category": "Flavours" },
+  { "id": "flavour-waldbeere", "name": "Waldbeere", "img": "Images/Flavours/Waldbeere.png", "price": 1.2, "category": "Flavours" },
+
+  { "id": "topping-bunte-streusel", "name": "Bunte Streusel", "img": "Images/Toppings/Buntestreusel.png", "price": 0.5, "category": "Toppings" },
+  { "id": "topping-marshmallows", "name": "Marshmallows", "img": "Images/Toppings/Marshmallows.png", "price": 0.6, "category": "Toppings" },
+  { "id": "topping-schokososse", "name": "Schokosoße", "img": "Images/Toppings/Schokososse.png", "price": 0.5, "category": "Toppings" },
+  { "id": "topping-schokostreusel", "name": "Schokostreusel", "img": "Images/Toppings/Schokostreusel.png", "price": 0.5, "category": "Toppings" },
+  { "id": "topping-waffel", "name": "Mini Waffel", "img": "Images/Toppings/Waffel.png", "price": 0.4, "category": "Toppings" },
+
+  { "id": "extra-bambus", "name": "Bambusstrohhalm", "img": "Images/Extras/Bambusstrohhalm.png", "price": 0.2, "category": "Extras" },
+  { "id": "extra-loeffel", "name": "Löffel", "img": "Images/Extras/Loeffel.png", "price": 0.1, "category": "Extras" },
+  { "id": "extra-schirmchen", "name": "Schirmchen", "img": "Images/Extras/Schirmchen.png", "price": 0.2, "category": "Extras" }
+]

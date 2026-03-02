@@ -1,0 +1,394 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(Images/Design/Background.png);
+    text-align: center;
+    font-family: cursive;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    background-color: burlywood;
+    position: relative;
+    margin-top: -22px;
+    height: 220px;
+    font-family: cursive;
+}
+
+footer {
+    background-color: burlywood;
+    position: absolute;
+    width: 100%;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    transition: 0.5s;
+}
+
+.category {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    width: 100%;
+}
+
+.cat-header {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    background-color: burlywood;
+    height: 60px;
+}
+
+.cat-header h2 {
+    position: relative;
+    font-size: 3em;
+    top: -45px;
+}
+
+.artikel {
+    display: block;
+    background-color: beige;
+    text-align: center;
+    float: left;
+    margin-bottom: 30px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 300px;
+    height: 340px;
+}
+
+.flavourartikel {
+    display: block;
+    background-color: beige;
+    text-align: center;
+    float: left;
+    margin-bottom: 30px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 300px;
+    height: 435px;
+}
+
+.artikel:nth-child(2n) {
+    background-color: burlywood;
+}
+
+.flavourartikel:nth-child(2n) {
+    background-color: burlywood;
+}
+
+.artikel h3 {
+    font-size: 1.8em;
+}
+
+.flavourartikel h3 {
+    font-size: 1.8em;
+}
+
+#numberinput {
+    margin-bottom: 25px;
+    width: 50px;
+}
+
+input {
+    font-family: cursive;
+}
+
+button {
+    border-style: groove;
+    font-size: 1.3em;
+    font-family: cursive;
+    background-color: whitesmoke;
+    border-radius: 10px;
+}
+
+.adminbutton {
+    width: 220px;
+    margin: 20px;
+}
+
+#admineditbutton {
+    margin-top: 20px;
+}
+
+#showall {
+    margin-top: 10px;
+}
+
+.logo {
+    position: relative;
+    bottom: -140px;
+    margin-top: -200px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 4em;
+    letter-spacing: -8px;
+    position: relative;
+    font-family: cursive;
+}
+
+h1+h2 {
+    color: rgb(248, 255, 188);
+    font-size: 3em;
+    position: relative;
+    top: -70px;
+    font-family: cursive;
+}
+
+header>a {
+    position: absolute;
+    right: 10%;
+    top: 13%;
+}
+
+#burgeropen {
+    cursor: pointer;
+    position: fixed;
+    left: 2%;
+    top: 3%;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: rgb(182, 148, 105);
+}
+
+.bar1,
+.bar2,
+.bar3 {
+    position: relative;
+    left: 8px;
+    top: 5px;
+    width: 35px;
+    height: 5px;
+    background-color: rgb(30, 30, 30);
+    margin: 6px 0;
+}
+
+#burgernav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: beige;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+#burgernav a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    font-size: 2.5em;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 10px;
+}
+
+#burgernav a:hover {
+    background-color: burlywood;
+}
+
+#burgerclose {
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 3%;
+}
+
+#burgerclose .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-6px, 2px);
+    transform: rotate(-45deg) translate(-6px, 2px);
+}
+
+#burgerclose .bar2 {
+    -webkit-transform: rotate(45deg) translate(-6px, -2px);
+    transform: rotate(45deg) translate(-6px, -2px);
+}
+
+#cart {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: beige;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+#cartopen {
+    cursor: pointer;
+    position: fixed;
+    right: 2%;
+    top: 3%;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: rgb(182, 148, 105);
+}
+
+#cartopen img {
+    position: relative;
+    width: 50px;
+    right: 3px;
+    bottom: 1px;
+}
+
+#cartclose {
+    position: absolute;
+    cursor: pointer;
+    left: 5%;
+    top: 3%;
+}
+
+#cartclose .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-6px, 2px);
+    transform: rotate(-45deg) translate(-6px, 2px);
+}
+
+#cartclose .bar2 {
+    -webkit-transform: rotate(45deg) translate(-6px, -2px);
+    transform: rotate(45deg) translate(-6px, -2px);
+}
+
+#cartcontent>h2 {
+    font-size: 2.5em;
+}
+
+#cartcontent p {
+    font-size: 1.5em;
+}
+
+#cartcontent>p {
+    font-size: 2.2em;
+}
+
+#cartformdiv {
+    display: none;
+    background-color: rgb(182, 148, 105);
+    padding: 25px;
+}
+
+#cartform h3 {
+    font-size: 1.5em;
+}
+
+#cartstartoverbutton {
+    margin: 20px;
+}
+
+.cartcategorydiv {
+    display: none;
+}
+
+.hide {
+    cursor: pointer;
+    position: relative;
+    text-align: right;
+    top: -120px;
+    right: 1%;
+}
+
+.adminordersdiv {
+    background-color: bisque;
+    margin-top: 25px;
+    padding: 20px;
+    width: 100%;
+}
+
+.adminordersdiv>h3 {
+    font-size: 1.5em;
+}
+
+@media screen and (min-width: 920px) and (max-width: 1440px) {
+    .logo {
+        width: 150px;
+        bottom: -80px;
+    }
+    header {
+        height: 150px;
+    }
+    h1 a {
+        font-size: 2.5em;
+        letter-spacing: -5px;
+    }
+    h1+h2 {
+        padding-top: 20px;
+        font-size: 2.2em;
+    }
+    header>a {
+        right: 10%;
+        top: 20%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 920px) {
+    .logo {
+        width: 100px;
+        bottom: -50px;
+    }
+    header {
+        height: 100px;
+    }
+    h1 a {
+        font-size: 1.5em;
+        letter-spacing: -4px;
+    }
+    h1+h2 {
+        font-size: 1.5em;
+        top: -25px;
+    }
+    header>a {
+        right: 2%;
+        top: 75%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .logo {
+        display: none;
+    }
+    header {
+        height: 80px;
+    }
+    h1 a {
+        font-size: 1.3em;
+        letter-spacing: -3px;
+    }
+    h1+h2 {
+        display: none;
+    }
+    header>a {
+        position: relative;
+        right: initial;
+        top: -28px;
+    }
+    #cartopen {
+        top: 1%;
+    }
+    #burgeropen {
+        top: 1%;
+    }
+}
